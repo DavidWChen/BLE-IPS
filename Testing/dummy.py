@@ -1,9 +1,7 @@
-import serial
 import time
 import json
 import requests
 URL = 'http://192.168.1.69:8080/update'
-s = serial.Serial("/dev/ttyS0", 57600)
 
 dummy =[{'rssi1': -81, 'rssi2': -91, 'rssi3': -94, 'rssi4': -89},
 		{'rssi1': -80, 'rssi2': -90, 'rssi3': -93, 'rssi4': -88},

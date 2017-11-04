@@ -127,28 +127,3 @@ def main():
 if __name__ == "__main__":
     print time.strftime('%T')
     main()
-
-
-#Main
-
-
-    
-# def get2Dhyptoneuse(x, y):
-#     #Get the x and y value inside array list
-#     for location in beacons:
-#         if location = 0:
-#             #get hypotenuse from 0,0,0
-#             h1 = math.sqrt(x**2 + y**2)
-#             return h1
-#         elif location = 1:
-#             #get hypotenuse from 0,5.67,2.7
-#             h2 = math.sqrt(x**2 + (5.67-y)**2)
-#             return h2
-#         elif location = 2:
-#             #get hypotenuse from 3.785,5.67,0
-#             h3 = math.sqrt((3.785-x)**2 + (5.67-y)**2)
-#             return h3
-#         else:
-#             #get hypotenuse from 3.785,0,2.7
-#             h4 = math.sqrt((3.785-x)**2 + 5.67**2)
-#             return h4
