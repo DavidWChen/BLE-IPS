@@ -1,7 +1,5 @@
 #include <SoftwareSerial.h>
-//TX -> 9 , RX -> 10
-//N.B. Connect Rx to Tx and vice versa
-//Our HM-10 has these connections flipped
+//RX -> 9 , TX -> 10
 SoftwareSerial BT(9, 10);
 
 void setup() {
