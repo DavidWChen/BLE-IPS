@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+  //  buildToolsVersion "26.0.0"
+    buildToolsVersion "25.0.3"
+    defaultConfig {
+        applicationId "com.leedian.demo"
+        minSdkVersion 23
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1,0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    // 进行网络请求的library
+    //解析json的library
+    // compile 'io.tesla.okhttp:okhttp:0.9.1'
+    //    compile 'io.tesla.okhttp:okhttp:0.9.1'
+ //   compile 'com.android.support:appcompat-v7:26.+'
+//    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+//    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+//    compile 'com.google.code.gson:gson:2.8.0'
+//    compile 'com.google.android.gms:play-services:11.0.4'
+//    compile 'com.android.support:support-v4:26.+'
+//    compile 'com.android.support:support-vector-drawable:26.+'
+//    testCompile 'junit:junit:4.12'
+//    // compile files('libs/picasso-2.5.2.jar')
+//
+//   // compile 'com.android.support:design:26.0.0'
+//    compile 'com.android.support:design:26.+'
+//    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
+
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.squareup.okhttp3:okhttp:3.2.0'
+    compile 'com.google.code.gson:gson:2.8.0'
+    compile 'com.android.support:support-v4:26.+'
+    compile 'com.android.support:support-vector-drawable:26.+'
+    testCompile 'junit:junit:4.12'
+    compile 'com.squareup.picasso:picasso:2.5.2'
+}

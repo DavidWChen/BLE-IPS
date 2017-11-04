@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.leedian.demo.MySettingActivity">
+
+
+            <Switch
+                android:id="@+id/switch1"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text=""
+                android:layout_below="@+id/tv_show_data"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="120dp" />
+
+            <Switch
+                android:id="@+id/switch2"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text=""
+                android:layout_below="@+id/tv_show_data"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="180dp" />
+
+            <Switch
+                android:id="@+id/switch3"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text=""
+                android:layout_below="@+id/tv_show_data"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="240dp" />
+
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="14dp"
+                android:layout_marginEnd="14dp"
+                android:layout_marginBottom="16dp" />
+
+            <!--<Button-->
+                <!--android:id="@+id/button2"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text=""-->
+                <!--android:layout_alignTop="@+id/switch2"-->
+                <!--android:layout_toRightOf="@+id/switch2"-->
+                <!--android:layout_alignBottom="@+id/switch2" />-->
+
+            <!--<Button-->
+                <!--android:id="@+id/button3"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text=""-->
+                <!--android:layout_alignTop="@+id/switch3"-->
+                <!--android:layout_toRightOf="@+id/switch3"-->
+                <!--android:layout_alignBottom="@+id/switch3" />-->
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/switch1"
+                android:layout_toRightOf="@+id/switch1"
+                android:layout_alignBottom="@+id/switch1"
+                android:background="#D3D3D3"
+                android:ems="4"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/switch2"
+                android:layout_toRightOf="@+id/switch2"
+                android:layout_alignBottom="@+id/switch2"
+                android:background="#D3D3D3"
+                android:ems="4"
+                android:inputType="textPersonName" />
+
+            <EditText
+                android:id="@+id/editText3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/switch3"
+                android:layout_toRightOf="@+id/switch3"
+                android:layout_alignBottom="@+id/switch3"
+                android:background="#D3D3D3"
+                android:ems="4"
+                android:inputType="textPersonName" />
+
+
+</RelativeLayout>
+
+

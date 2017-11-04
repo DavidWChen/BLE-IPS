@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.leedian.demo.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/btn_get_data"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Find Item"
+            android:layout_alignBaseline="@+id/timer"
+            android:layout_alignBottom="@+id/timer"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_marginTop="19dp"
+            android:src="@drawable/map"
+            android:layout_below="@+id/timer"
+            android:layout_centerHorizontal="true"></ImageView>
+
+        <TextView
+            android:layout_below="@+id/imageView"
+            android:id="@+id/tv_show_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="data"
+            />
+
+        <TextView
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tv_show_data"
+            android:layout_marginTop="25dp"
+            android:id="@+id/tv_show_data_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Time" />
+
+        <Chronometer
+            android:layout_alignParentRight="true"
+            android:id="@+id/timer"
+            android:format="00:00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp" />
+
+        <Button
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tv_show_data"
+            android:layout_marginTop="25dp"
+            android:id="@+id/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings" />
+
+        <Button
+            android:id="@+id/mylocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get My Location"
+            android:layout_alignBaseline="@+id/btn_get_data"
+            android:layout_alignBottom="@+id/btn_get_data"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+    </RelativeLayout>
+</ScrollView>
