@@ -1,0 +1,104 @@
+BLE Indoor Positioning System Version 0.4.2 2017/09/12
+0.4.3 in development
+
+David Chen
+dwchen@g.ucla.edu
+
+Contents:
+/Relevant Data
+	Bluetooth Indoor Positioning System.docx
+		In depth documentation for the Project; data flow, methodology, expermental results, and how to set up the hardware can be found in here.
+	/Reference
+		Contains files and documents referenced in Bluetooth Indoor Postioning System.docx
+	Filter Analysis.xlsx:
+		Analysis of perfomance of Android Beacon Library and Kalman filters compared to unfiltered RSSI (Stability and Time Delay) Contains Data for 0.25, 0.5, 1 , and 2 meters away and a time delay analysis where the Beacons were moved between 10, 3, and 1 meters of distance t 4 minute cycles. The movement is as follows: 10m,3m,1m,3m,10m,3m.
+	HM-10 Calibrations.xlsx:
+		Calibration and Error Analysis of HM-10s as Beacons Include Raw Data Points, Error Analysis of each HM-10, Calibration Calculations for each HM-10 and a Results Summary Page
+	Seekcy Calibration.xlsx:
+		SimulAR TO HM-10 Calibrations, but for Seekcy and with the Data Analysis for all Beacons condensed onto one sheet.
+	BLE IPS Presentation.pptx:
+		Presentation Powerpoint for Final Review of Project
+/Android App/
+	Beak-N-Map:
+		Android Application; Current functions include:
+			Find My Location:
+				Emulates LinkIt behavior through Android's Bluetooth API (see /LinkIt)
+				Notifies User upon failure to gather BLE signals
+				If POST to Server Succeeds calls get (see GET request to Server)
+			GET request to Server, to retrieve:
+				xyz coordinates of the object
+				.png file containing a map of the room with the position of the object indicated
+				time in seconds since epoch the xyz point and map was updated
+			Displays map, coordinates, time in human-readable format,and time since update
+			Settings:
+				Rename object ID
+				Determine which objects to display
+/LinkIt
+	note: setup instruction are under the assumption the LinkIt is running and connected to the internet your computer is on in accordance to the MediaTek LinkIt Start Up Guide.
+	scanBT.ino:
+		Arduino Code designed to be used on the LinkIt Smart 7688 Duo (Assumes presence of HM-10 in receiver mode); Sends Discovery commands to the HM-10, which will return a Discovery string. This string is read byte-by-byte, formatted back into astring and then sent to the MT7688AN, which runs post.py.
+		In order to run this:
+			1) Install the LinkIt Board Manager (detailed in page 68 of the MediaTek Developer's Guide)
+			2) Make sure the HM-10 connected to and powered(VCC to 3V, GND to GND, RX to TX and TX to RX) Note that pin D9 and D10 are set as the LinkIt's RX and TX pins respectively. Simply put connect the HM-10's TX to pin D9 and RX to pin D10
+			3)Under Tools of the Arduino IDE, set the Board to "LinkIt Smart 7688 Duo", Port to which ever port the LinkIt is on (most likely /dev/tty0), and Programmer to "LinkIt Smart 7688 Duo as ISP"
+			4)Click upload adn the program should be running on the ATmega 32U
+	post.py: 
+		Python code designed to be used on the LinkIt Smart 7688 Duo; Parses through the Discovery string and collects the RSSI corresponding to the MAC address of the Beacons. Once at least one RSSI from each Beacon is collected, the data is formatted into JSON and posted onto a server.
+		In order to run this:
+			1) ssh into the board either from terminal or Putty. The address will be:
+				root@mylinkit.local
+			2) Copy the file post.py onto the LinkIt Board
+			3) The LinkIt OpenWrt Lunux distribution should have python but lacks the python modules serial, json, and requests. Download these using $pip install <module name>
+			4) Run the program using $python post.py
+				The running of this program can be automated as noted in the Hardware Setup section of Bluetooth Indoor Positioning Sytem.docx
+/Server
+	FreeSerif.ttf: 
+		Simple Font File
+	smallroom.png;
+		Blank floorplan of LeedianCN meeting Room
+	package.json:
+		Indicates packages needed for the server to run properly
+	server.js:
+		Node.js Server; Supports;
+			GET data request; responds with location.png and contents of txyz.json
+			POST update request; Stores incoming RSSI, filters them though a Limited Kalman Filter and passes them into a python shell running server_rme.py for processing. Then collects the time and xyz-coordinates from the Python program and stores them in txyz.json
+	server_rme.py:
+		Python program designed to be run in a Python-Shell; Executes the following algorithms:
+			Collects the RSSI and coverts it to meters
+			Takes the meters and uses root mean error minimization to find the most probable xyz-coordinate
+			Marks the coordinate on smallroom.png and saves it as location.png
+			Adds a timestamp in seconds since epoch
+			Prints time and xyz-coordinates in JSON format. (Python-Shell Collects the running programs output to STDOUT)
+	txyz.json:
+		JSON file containing the output of server_rme.py
+	location.png:
+		Map image created by server_rme.py
+	/Modified Server
+		mod_server.js:
+			Server that is able to keep track of multiple LinkIt chips at once. Currently unimplemented in main server due to time contraints. In order to incorporate multichip tracking in to the main server, The following must be done:
+				LinkIts (and their Emulators) must send a unique ID along with their RSSI values
+				The App's Get Fucntion must be modified to be ID-specific
+				The original GET /data must be replaced with a get/:ID, located in mod_server.js
+				The orignal server's POST/update must accept one more parameter
+				After the data is retrieved from the Python shell, it must pass through the code implemented in server_mod.js's POST /update
+		txyz.json:
+			JSON file containing multiple chips
+		pseudo_post.py:
+			Python program that can be used to send sample data to mod_server.js, emulating the output of the python shell.
+/Testing
+	talk_test.py:
+		3 lines of code for determining if the LinkIt Duo Boards are communicating
+		Used in Conjuntion with scan BT (Runs on 7688)
+	hm_test.py:
+		Collects data points for RSSI measurements for 4 Beacons (HM-10s) at once
+		This data collectot currently runs the values through an Android Beacon Library Style Filter in processRSSI (Runs on 7688)
+	DataAggrerator.ino:
+		Used for collecting data in cases where a bluetooth cabable device that can run python is not available. Runs on an Arduino, but it should be noted that an HM-10 is needed to provide bluetooth capability.
+	ErrorCheck.py:
+		Calculates the average error of a position finding fucntion across a sampling of an entire room. Values change when the RSSI-meter funciton is modified. (Run on any version of Python)
+	dummy.py:
+		Sends sample RSSI data to the server. Allows for Server development without use of extraneous hardware. (Runs on any Python ditribution on the same Internet as the LinkIt)
+	/Test Server/server.js
+		Seperate server used for testing without interferring with the Server noted above.
+		Currently configured to test the stability of unfiltered, Andorid Beacon Library Filtered and Kalman Filtered RSSIs. Other files are duplicated from /Server. (Runs on Nodejs)
+
